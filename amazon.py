@@ -1,5 +1,4 @@
-
-
+import sentmod as s
 import urllib
 import requests
 from lxml import html
@@ -50,15 +49,28 @@ while lengh-1!=0:
     tree.make_links_absolute(cin)
     obj_5 = tree.cssselect(".a-section.review .a-row.review-data .a-size-base.review-text")
     for y in range(0 , rev_len-1):
-        print obj_5[y].text_content()
+        z = obj_5[y].text_content()
+        print z
+        sentiment_value, confidence = s.sentiment(z)
+        print sentiment_value, confidence
+        if confidence * 100 >= 80:
+            output = open("//home//abhishek//Desktop//p_q//amazon.txt", "a")
+            # output.write(tweets)
+            # output.write("::::")
+            output.write(sentiment_value)
+            output.write("\n")
+            output.close()
+
     lengh-=1
 
+'''
 
 #.a-pagination .a-last pagination
 
-'''
-    obj_3 = tree.cssselect(".a-row.a-spacing-small .a-section")
-    rev_length = len(obj_3)
-    for x in range(0 , rev_length-1):
-        print obj_3[x].text_content()
+
+#    obj_3 = tree.cssselect(".a-row.a-spacing-small .a-section")
+ #   rev_length = len(obj_3)
+ #   for x in rainge(0 , rev_length-1):
+  #      print obj_3[x].text_content()
+
 '''
