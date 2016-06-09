@@ -1,7 +1,9 @@
+import sentmod as s
 import urllib
 import requests
 from lxml import html
-url = "http://www.flipkart.com/search?q=dell+inspiron"
+ask = raw_input("search??")
+url = "http://www.flipkart.com/search?q="+ask+""
 #total of 72 pages
 req = requests.get(url)
 
@@ -38,7 +40,17 @@ while 1:
     z_obj = tree.cssselect(".line.bmargin10 .review-text")
     x = len(z_obj)
     for i in range(0, x - 1):
-        print a_obj[i].text_content()
+        tweet = a_obj[i].text_content()
+        print tweet
+        sentiment_value, confidence = s.sentiment(tweet)
+        print sentiment_value, confidence
+        if confidence * 100 >= 80:
+            output = open("//home//abhishek//Desktop//p_q//flip.txt", "a")
+            # output.write(tweets)
+            # output.write("::::")
+            output.write(sentiment_value)
+            output.write("\n")
+            output.close()
 
 
 
